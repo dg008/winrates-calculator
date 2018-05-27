@@ -12,8 +12,7 @@ const calculator = ({firstParticipant, secondParticipant, matchResults, matchRes
         numGamesWonBy1stParticipant = 0,
         numGamesWonBy1stParticipantAgainst2ndParticipant = 0;
 
-    const matchResultEachOperator = matchResult => {
-        console.log('in each');
+    const matchResultEachOperator = (matchResult) => {
         if (matchResult.participants.includes(firstParticipant)) {
             numGamesWith1stParticipant++;
             if (matchResult.participants.includes(secondParticipant)) {
@@ -32,25 +31,27 @@ const calculator = ({firstParticipant, secondParticipant, matchResults, matchRes
         ? arrayPromise(matchResults, matchResultEachOperator)
         : matchResults[matchResultEachMethodName](matchResultEachOperator);
 
-    dataToOperateOn.then(() => {
-        let overallWinRate = (numGamesWonBy1stParticipant/numGamesWith1stParticipant)*100;
-        overallWinRate = isNaN(overallWinRate) ? NaN : overallWinRate;
-        const overallLossRate = isNaN(overallWinRate) ? NaN : 100 - overallWinRate
-    
-        let specificWinRate = (numGamesWonBy1stParticipantAgainst2ndParticipant/numGamesWith2ndParticipant)*100;
-        specificWinRate = isNaN(specificWinRate) ? NaN : specificWinRate;        
-        const specificLossRate = isNaN(specificWinRate) ? NaN : 100 - specificWinRate;
+    return Promise.resolve(
+        dataToOperateOn.then(() => {        
+            console.log('numGamesWonBy1stParticipant', numGamesWonBy1stParticipant);
+            console.log('numGamesWith2ndParticipant', numGamesWith2ndParticipant);
+            let overallWinRate = (numGamesWonBy1stParticipant/numGamesWith1stParticipant)*100;
+            overallWinRate = isNaN(overallWinRate) ? NaN : overallWinRate;
+            const overallLossRate = isNaN(overallWinRate) ? NaN : 100 - overallWinRate
+        
+            let specificWinRate = (numGamesWonBy1stParticipantAgainst2ndParticipant/numGamesWith2ndParticipant)*100;
+            specificWinRate = isNaN(specificWinRate) ? NaN : specificWinRate;        
+            const specificLossRate = isNaN(specificWinRate) ? NaN : 100 - specificWinRate;
 
-        return {
-            numGamesWith2ndParticipant,
-            overallWinRate,
-            overallLossRate,
-            specificWinRate,
-            specificLossRate,
-        };
-    });
-
-    return Promise.resolve(dataToOperateOn);
+            return {
+                numGamesWith2ndParticipant,
+                overallWinRate,
+                overallLossRate,
+                specificWinRate,
+                specificLossRate,
+            };
+        })
+    );
 }
 
 module.exports = calculator;
