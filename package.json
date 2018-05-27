@@ -1,0 +1,14 @@
+{
+  "name": "winrates-calculator",
+  "version": "1.0.0",
+  "description": "This is a component which calculates WIN/LOSS rates for a participant given a set of match results",
+  "main": "calculator.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "David Georgy",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^23.0.0"
+  }
+}
